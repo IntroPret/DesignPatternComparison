@@ -4,6 +4,12 @@ public class GameObject implements Cloneable {
     private String asset;
 
     public GameObject() {
+        // Simulasi proses inisialisasi yang mahal
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         this.asset = "HeavyAsset";
     }
 
@@ -12,7 +18,6 @@ public class GameObject implements Cloneable {
         try {
             return (GameObject) super.clone();
         } catch (CloneNotSupportedException e) {
-            // Ini tidak akan pernah terjadi karena kelas ini mengimplementasikan Cloneable
             return null;
         }
     }

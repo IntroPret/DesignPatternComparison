@@ -1,7 +1,7 @@
 package benchmark;
 
 public abstract class BenchmarkBase {
-    protected static final int ITERATIONS = 200_000;
+    protected static final int ITERATIONS = 2000; // DIUBAH DARI 200_000
     protected static final int RUNS = 5;
 
     protected long usedMemory() {

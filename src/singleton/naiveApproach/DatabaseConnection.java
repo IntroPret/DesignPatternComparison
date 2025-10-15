@@ -4,10 +4,10 @@ package singleton.naiveApproach;
 public class DatabaseConnection {
 	 public DatabaseConnection() {
 	     // Simulate initialization delay
-//	     try {
-//	         Thread.sleep(1);
-//	     } catch (InterruptedException e) {
-//	         e.printStackTrace();
-//	     }
+	     try {
+	         Thread.sleep(1); // DITAMBAHKAN
+	     } catch (InterruptedException e) {
+	         e.printStackTrace();
+	     }
 	 }
 }

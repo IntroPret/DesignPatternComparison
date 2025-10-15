@@ -5,11 +5,11 @@ public class DatabaseConnectionSingleton {
 	 private static DatabaseConnectionSingleton instance;
 	
 	 private DatabaseConnectionSingleton() {
-//	     try {
-//	         Thread.sleep(1);
-//	     } catch (InterruptedException e) {
-//	         e.printStackTrace();
-//	     }
+	     try {
+	         Thread.sleep(1); // DITAMBAHKAN
+	     } catch (InterruptedException e) {
+	         e.printStackTrace();
+	     }
 	 }
 	
 	 public static synchronized DatabaseConnectionSingleton getInstance() {
