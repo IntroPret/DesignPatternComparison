@@ -10,6 +10,7 @@ public class RunAllBenchmark {
         results.add(new SingletonBenchmark().run());
         results.add(new BuilderBenchmark().run());
         results.add(new PrototypeBenchmark().run());
+        results.add(new AbstractFactoryBenchmark().run());
 
         System.out.println("=============================== FINAL BENCHMARK RESULTS (AVERAGE) ===============================");
         for (BenchmarkResult r : results) {
