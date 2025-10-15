@@ -8,6 +8,7 @@ public class RunAllBenchmark {
 
         results.add(new FactoryBenchmark().run());
         results.add(new SingletonBenchmark().run());
+        results.add(new BuilderBenchmark().run());
 
         System.out.println("=============================== FINAL BENCHMARK RESULTS (AVERAGE) ===============================");
         for (BenchmarkResult r : results) {

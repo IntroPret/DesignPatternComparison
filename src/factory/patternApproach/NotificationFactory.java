@@ -1,4 +1,4 @@
-package factory.PatternApproach;
+package factory.patternApproach;
 
 import factory.model.Notification;
 

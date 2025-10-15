@@ -1,21 +1,14 @@
 package benchmark;
 
-import factory.model.EmailNotification;
-import factory.model.Notification;
-import factory.model.PushNotification;
-import factory.model.SMSNotification;
-import factory.patternApproach.ConcreteNotificationFactory;
-import factory.patternApproach.NotificationFactory;
+import builder.model.ServerConfig;
+import builder.naiveApproach.ServerConfigTelescoping;
 
-public class FactoryBenchmark extends BenchmarkBase {
+public class BuilderBenchmark extends BenchmarkBase {
 
     @Override
     public BenchmarkResult run() {
-        NotificationFactory factory = new ConcreteNotificationFactory();
-        String type = "EMAIL";
-
         System.out.println("============================================================");
-        System.out.println("Factory Method Test (Stabilized)");
+        System.out.println("Builder Test (Stabilized)");
         System.out.println("============================================================");
 
         long totalNaiveTime = 0, totalPatternTime = 0;
@@ -23,8 +16,8 @@ public class FactoryBenchmark extends BenchmarkBase {
 
         // Warm-up
         for (int i = 0; i < 50_000; i++) {
-            factory.createNotification(type);
-            new EmailNotification();
+            new ServerConfigTelescoping(8080, "localhost", 1000, 50);
+            new ServerConfig.Builder(8080, "localhost").timeout(1000).maxConnections(50).build();
         }
 
         for (int run = 1; run <= RUNS; run++) {
@@ -34,13 +27,7 @@ public class FactoryBenchmark extends BenchmarkBase {
             long memBeforeNaive = usedMemory();
             long startNaive = System.nanoTime();
             for (int i = 0; i < ITERATIONS; i++) {
-                Notification n;
-                if (type.equalsIgnoreCase("EMAIL"))
-                    n = new EmailNotification();
-                else if (type.equalsIgnoreCase("SMS"))
-                    n = new SMSNotification();
-                else
-                    n = new PushNotification();
+                new ServerConfigTelescoping(8080, "localhost", 1000, 50);
             }
             long naiveTime = System.nanoTime() - startNaive;
             long naiveMem = usedMemory() - memBeforeNaive;
@@ -48,12 +35,12 @@ public class FactoryBenchmark extends BenchmarkBase {
             totalNaiveTime += naiveTime;
             totalNaiveMem += naiveMem;
 
-            // ---- Factory Pattern ----
+            // ---- Builder Pattern ----
             stabilize();
             long memBeforePattern = usedMemory();
             long startPattern = System.nanoTime();
             for (int i = 0; i < ITERATIONS; i++) {
-                factory.createNotification(type);
+                new ServerConfig.Builder(8080, "localhost").timeout(1000).maxConnections(50).build();
             }
             long patternTime = System.nanoTime() - startPattern;
             long patternMem = usedMemory() - memBeforePattern;
@@ -70,6 +57,6 @@ public class FactoryBenchmark extends BenchmarkBase {
 
         System.out.println("============================================================\n");
 
-        return new BenchmarkResult("FactoryMethod (Naive vs Pattern)", avgTimeDiff, avgMemDiff);
+        return new BenchmarkResult("Builder (Naive vs Pattern)", avgTimeDiff, avgMemDiff);
     }
 }
